@@ -1,7 +1,7 @@
 <?php
 namespace App\Http\Controllers;
 
-use App\Models\Users;
+use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
@@ -13,7 +13,8 @@ class AuthController extends Controller
     public function register(Request $request)
     {
         $validator = Validator::make($request->all(), [
-            'name' => 'required|string|max:255',
+            'name' => 'required|string|max:64',
+            'lastname' => 'required|string|max:64',
             'email' => 'required|string|email|max:255|unique:users',
             'password' => 'required|string|min:8'
         ]);
@@ -22,8 +23,9 @@ class AuthController extends Controller
             return response()->json($validator->errors(), 400);
         }
 
-        $user = Users::create([
+        $user = User::create([
             'name' => $request->input('name'),
+            'lastname' => $request->input('lastname'),
             'email' => $request->input('email'),
             'password' => Hash::make($request->input('password'))
         ]);

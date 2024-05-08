@@ -3,7 +3,7 @@ namespace App\Models;
 // use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
-class Users extends Model{
+class User extends Model{
     use hasFactory;
     protected $table = 'Users';
     protected $fillable = [
@@ -11,13 +11,13 @@ class Users extends Model{
         'password',
         'name',
         'lastname',
-        'created_date',
-        'modified_date',
+        'created_at',
+        'audated_at',
         'admin'
     ];
     protected $casts = [
-        'created_date' => 'datetime',
-        'modified_date' => 'datetime',
+        'created_at' => 'datetime',
+        'audated_at' => 'datetime',
         'admin' => 'boolean'
     ];
 }

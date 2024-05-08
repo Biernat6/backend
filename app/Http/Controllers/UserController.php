@@ -1,7 +1,7 @@
 <?php
     namespace App\Http\Controllers;
 
-    use App\Models\Users;
+    use App\Models\User;
     use Illuminate\Http\Request;
     use Illuminate\Support\Facades\Hash;
 
@@ -10,14 +10,14 @@
         //Wybranie jednego użytkownika
         public function find($id)
         {
-            $user = Users::findOrFail($id);
+            $user = User::findOrFail($id);
             return response()->json($user);
         }
 
         //Zmiana danych
         public function update(Request $request, $id)
         {
-            $user = Users::findOrFail($id);
+            $user = User::findOrFail($id);
 
             $user->email = $request->input('email');
             $user->name = $request->input('name');
@@ -30,14 +30,14 @@
         //Usuwanie użytkownika
         public function destroy($id)
         {
-            $user = Users::destroy($id);
+            $user = User::destroy($id);
             return response()->json($user);
         }
 
         //Pobieranie listy użytkowników
         public function index()
         {
-            $user = Users::all();
+            $user = User::all();
             return response()->json($user);
         }
     }
