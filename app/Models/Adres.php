@@ -19,8 +19,6 @@ class Adres extends Model{
         'home',
         'local',
         'zip_code',
-        'created_date',
-        'modified_date'
     ];
     
     protected $casts = [
@@ -28,8 +26,8 @@ class Adres extends Model{
         'home' => 'integer',
         'local' => 'integer',
         'zip_code' => 'integer',
-        'created_date' => 'datetime',
-        'modified_date' => 'datetime',
+        'created_at' => 'datetime',
+        'updated_at' => 'datetime',
     ];
 
     

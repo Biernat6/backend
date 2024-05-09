@@ -18,11 +18,17 @@
         public function update(Request $request, $id)
         {
             $user = User::findOrFail($id);
-
-            $user->email = $request->input('email');
-            $user->name = $request->input('name');
-            $user->lastname = $request->input('lastname');
-
+        
+            if ($request->has('email')) {
+                $user->email = $request->input('email');
+            }
+            if ($request->has('name')) {
+                $user->name = $request->input('name');
+            }
+            if ($request->has('lastname')) {
+                $user->lastname = $request->input('lastname');
+            }
+        
             $user->save();
             return response()->json($user);
         }

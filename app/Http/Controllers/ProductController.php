@@ -23,32 +23,36 @@
             $product->category_id = $request->input('category_id');
             $product->description = $request->input('description');
             $product->stock = $request->input('stock');
-        
+
+            $product->save();
+
             $img = new Img();
-            $img->product_id = $product->id;
+            $img->product_id = $product->id; 
             $img->img_url = $request->input('img_url');
             $img->save();
 
-            $product->save();
             return response()->json($product);
         }
 
         //Modyfikowanie produktu
         public function modifiedProduct(Request $request, $id)
-        {
+{
+        $product = Product::findOrFail($id);
         
-            $product = Product::findOrFail($id);
+        $product->name = $request->input('name');
+        $product->type = $request->input('type');
+        $product->weight = $request->input('weight');
+        $product->description = $request->input('description');
+        $product->unit_price = $request->input('unit_price');
+        $product->category_id = $request->input('category_id');
+        $product->stock = $request->input('stock');
 
-            $product->name = $request->input('name');
-            $product->type = $request->input('type');
-            $product->weight = $request->input('weight');
-            $product->description = $request->input('description');
-            $product->unit_price = $request->input('unit_price');
-            $product->category_id = $request->input('category_id');
-            $product->description = $request->input('description');
-            $product->stock = $request->input('stock');
+        $product->save();
 
-            $img = Img::where('product_id', $id)->first();
+        $img = Img::where('product_id', $product->id)->first();
+
+        // Sprawdzenie, czy img_url nie jest puste
+        if ($request->has('img_url') && !is_null($request->input('img_url'))) {
             if ($img) {
                 $img->img_url = $request->input('img_url');
                 $img->save();
@@ -58,10 +62,12 @@
                 $newImg->img_url = $request->input('img_url');
                 $newImg->save();
             }
-
-            $product->save();
-            return response()->json($product);
         }
+
+        return response()->json($product);
+    }
+
+
 
         //Usuwanie produktu
         public function deleteProduct($id)

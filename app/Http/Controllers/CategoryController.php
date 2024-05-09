@@ -59,17 +59,18 @@
         public function addProductToCategory(Request $request, $categoryId)
         {
             $category = Categories::findOrFail($categoryId);
-
+            
             $productId = $request->input('product_id');
-
-            if ($category->products()->where('id', $productId)->exists()) {
+            
+            if ($category->products()->where('product_id', $productId)->exists()) {
                 return response()->json(['message' => 'Produkt należy już do kategorii'], 400);
             }
-
+            
             $product = Product::findOrFail($productId);
-
-            $product->category_id = $category->id;
+            
+            $product->category_id = $categoryId; 
             $product->save();
+            
             return response()->json(['message' => 'Produkt został prawidłowo dodany']);
         }
     }

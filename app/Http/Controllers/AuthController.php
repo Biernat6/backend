@@ -34,24 +34,22 @@ class AuthController extends Controller
     }
 
     // Logowanie użytkownika
-    public function login(Request $request)
-    {
-        $validator = Validator::make($request->all(), [
-            'email' => 'required|email',
-            'password' => 'required'
-        ]);
-
-        if ($validator->fails()) {
-            return response()->json($validator->errors(), 400);
-        }
-
-        if (Auth::attempt($request->only('email', 'password'))) {
-            $request->session()->regenerate();
-            return response()->json(Auth::user());
-        }
-
-        return response()->json(['message' => 'Nie prawidłowe dane'], 401);
-    }
+  public function login(Request $request)
+  {
+      $credentials = $request->validate([
+          'email' => 'required|email',
+          'password' => 'required'
+      ]);
+  
+      if (Auth::attempt($credentials)) {
+          $request->session()->regenerate();
+  
+          return response()->json(['message' => 'Zalogowano poprawnie']);
+      }
+  
+      return response()->json(['error' => 'Błędny login lub hasło'], 401);
+  }
+  
 
     // Wylogowanie użytkownika
     public function logout(Request $request)

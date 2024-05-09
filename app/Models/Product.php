@@ -9,7 +9,13 @@ use Illuminate\Database\Eloquent\Model;
 class Product extends Model{
     use hasFactory;
 
+    public function category()
+    {
+        return $this->belongsTo(Categories::class, 'category_id', 'category_id');
+    }
+
     protected $table = 'products';
+    protected $primaryKey = 'product_id';
 
     protected $fillable = [
         'name',
@@ -18,18 +24,17 @@ class Product extends Model{
         'description',
         'unit_price',
         'category_id',
-        'created_date',
-        'modified_date',
-        'slock'
+        'stock'
     ];
     
     protected $casts = [    
         'weight' => 'integer',
         'unit_price' => 'decimal:2',
-        'created_date' => 'datetime',
-        'modified_date' => 'datetime',
-        'slock' => 'integer',
+        'created_at' => 'datetime',
+        'updated_at' => 'datetime',
+        'stock' => 'integer',
     ];
 
+    
 
 }
