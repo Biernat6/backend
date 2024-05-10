@@ -30,7 +30,9 @@ class AuthController extends Controller
             'password' => Hash::make($request->input('password'))
         ]);
 
-        return response()->json($user, 201);
+        $token = $user->createToken('auth_token')->plainTextToken;
+
+        return response()->json(['user' => $user, 'token' => $token], 201);
     }
 
     // Logowanie użytkownika
@@ -43,8 +45,10 @@ class AuthController extends Controller
   
       if (Auth::attempt($credentials)) {
           $request->session()->regenerate();
-  
-          return response()->json(['message' => 'Zalogowano poprawnie']);
+          $user = Auth::user();
+          $token = $user->createToken('auth_token')->plainTextToken;
+
+          return response()->json(['message' => 'Zalogowano poprawnie', 'token' => $token]);
       }
   
       return response()->json(['error' => 'Błędny login lub hasło'], 401);
