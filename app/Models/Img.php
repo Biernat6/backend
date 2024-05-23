@@ -6,13 +6,19 @@ use Illuminate\Database\Eloquent\Model;
 class Img extends Model{
     use hasFactory;
     protected $table = 'Img';
-    protected $primaryKey = 'img_id';
+    protected $primaryKey = 'id';
     public $timestamps = false;
     protected $fillable = [
         'product_id',
-        'img_url'
+        'url'
     ];
     protected $casts = [
         'product_id' => 'integer',
     ];
+
+    public function product()
+    {
+        return $this->belongsTo(Product::class);
+    }
+    
 }

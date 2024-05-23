@@ -20,9 +20,17 @@
         public function findProductsByCategory($id)
         {
             $category = Categories::findOrFail($id);
-            $products = $category->products;
+            $products = $category->products()->with('images')->get();
             return response()->json($products);
         }
+
+        // Wyszukiwanie kategorii
+        public function find($id)
+        {
+            $category = Categories::findOrFail($id);
+            return response()->json($category );
+        }
+
 
         //Admin
 
@@ -37,7 +45,7 @@
             return response()->json($category);
         }        
 
-        //Usuwanie produktu
+        //Usuwanie kategorii
         public function destroy($id)
         {
             $category = Categories::destroy($id);
@@ -48,10 +56,9 @@
         public function update(Request $request, $id)
         {
             $category = Categories::findOrFail($id);
-
             $category->name = $request->input('name');
-
             $category->save();
+    
             return response()->json($category);
         }
 
@@ -61,10 +68,6 @@
             $category = Categories::findOrFail($categoryId);
             
             $productId = $request->input('product_id');
-            
-            if ($category->products()->where('product_id', $productId)->exists()) {
-                return response()->json(['message' => 'Produkt należy już do kategorii'], 400);
-            }
             
             $product = Product::findOrFail($productId);
             

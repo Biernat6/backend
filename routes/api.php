@@ -18,6 +18,16 @@ Route::put('/modifiedProduct/{product_id}', [ProductController::class, 'modified
 Route::delete('/deleteProduct/{product_id}', [ProductController::class, 'deleteProduct']); // Działa
 Route::put('/updateProduct/{product_id}', [ProductController::class, 'update']); // Działa
 Route::get('/findProduct/{product_id}', [ProductController::class, 'find']); // Działa
+Route::get('/findProduct/{id}/images', [ProductController::class, 'getProductImages']);
+
+
+Route::get('/findProductsByPriceRange', [ProductController::class, 'findByPriceRange']);
+Route::get('/indexAdministration', [ProductController::class, 'indexAdministration']);
+Route::post('/addImageByUrl/{product_id}', [ProductController::class, 'addImageByUrl']);
+Route::delete('/deleteImage/{image_id}', [ProductController::class, 'deleteImage']);
+Route::put('/updateImage/{product_id}', [ProductController::class,'updateImage']);
+
+
 
 //----------Auth-------------//
 // Route::get('/auth', [AuthController::class, 'index']);
@@ -33,6 +43,7 @@ Route::post('/createCategory', [CategoryController::class, 'create']); // Dział
 Route::delete('/destroyCategory/{category_id}', [CategoryController::class, 'destroy']); // Działa
 Route::put('/updateCategory/{category_id}', [CategoryController::class, 'update']); // Działa
 Route::post('/addProductToCategory/{category_id}', [CategoryController::class, 'addProductToCategory']); // Działa
+Route::get('/findCategory/{category_id}', [CategoryController::class, 'find']); // Działa
 
 //----------Order-------------//
 Route::get('/indexOrder', [OrderController::class, 'index']); // Działa

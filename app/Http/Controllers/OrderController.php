@@ -13,7 +13,7 @@ class OrderController extends Controller
     // Wyświetlanie wszystkich zamówień
     public function index()
     {
-        $orders = Orders::all();
+        $orders  = Orders::with('user')->get();
         return response()->json($orders);
     }
 

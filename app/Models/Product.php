@@ -11,30 +11,27 @@ class Product extends Model{
 
     public function category()
     {
-        return $this->belongsTo(Categories::class, 'category_id', 'category_id');
+        return $this->belongsTo(Categories::class, 'category_id', 'id');
     }
-
     protected $table = 'products';
-    protected $primaryKey = 'product_id';
+    protected $primaryKey = 'id';
 
     protected $fillable = [
         'name',
-        'type',
-        'weight',
         'description',
-        'unit_price',
+        'price',
         'category_id',
-        'stock'
     ];
     
     protected $casts = [    
-        'weight' => 'integer',
-        'unit_price' => 'decimal:2',
+        'price' => 'decimal:2',
         'created_at' => 'datetime',
         'updated_at' => 'datetime',
-        'stock' => 'integer',
     ];
 
-    
+    public function images()
+    {
+        return $this->hasMany(Img::class, 'product_id');
+    }
 
 }

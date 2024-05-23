@@ -1,0 +1,14 @@
+type Product {
+  id: ID!
+  name: String!
+  type: String!
+  weight: Int!
+  description: String
+  unit_price: Float!
+  category_id: ID!
+  stock: Int!
+}
+
+type Query {
+  productsByPrice(minPrice: Float!, maxPrice: Float!): [Product!]!
+}

@@ -12,7 +12,7 @@ class CreateImgTable extends Migration
             $table->string('url');
             $table->unsignedBigInteger('product_id');
             $table->timestamps();
-            $table->foreign('product_id')->references('id')->on('product')->onDelete('cascade');
+            $table->foreign('product_id')->references('id')->on('products')->onDelete('cascade');
         });
     }
     public function down()

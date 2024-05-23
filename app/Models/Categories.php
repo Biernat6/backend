@@ -7,13 +7,14 @@ class Categories extends Model
 {
     use HasFactory;
 
-    protected $primaryKey = 'category_id';
-    protected $table = 'categories'; // Nazwa tabeli powinna być w formie małych liter
+    protected $primaryKey = 'id';
+    protected $table = 'categories'; 
     public $timestamps = false;
     protected $fillable = ['name'];
 
     public function products()
     {
-        return $this->hasMany(Product::class, 'category_id', 'category_id');
+        return $this->hasMany(Product::class, 'category_id', 'id');
     }
 }
+
